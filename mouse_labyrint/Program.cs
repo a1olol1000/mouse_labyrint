@@ -33,6 +33,7 @@ Texture2D mouse13 = Raylib.LoadTexture(@"mouse_labyrint_character\mouse_labyrint
 Texture2D mouse14 = Raylib.LoadTexture(@"mouse_labyrint_character\mouse_labyrint14.png");
 Texture2D mouse15 = Raylib.LoadTexture(@"mouse_labyrint_character\mouse_labyrint15.png");
 Texture2D mouse16 = Raylib.LoadTexture(@"mouse_labyrint_character\mouse_labyrint16.png");
+Texture2D the_cheese_is_a_lie = Raylib.LoadTexture("the_cheese_is_a_lie.png");
 Texture2D mouseUpp = mouse1;
 Texture2D mouseDown = mouse3;
 Texture2D mouseRight = mouse5;
@@ -144,9 +145,9 @@ while (!Raylib.WindowShouldClose())
 
   //graphic
   Raylib.BeginDrawing();
-  
+   
   Raylib.ClearBackground(Color.BLACK);
-  
+  Raylib.DrawTexture(the_cheese_is_a_lie, 700, 400, Color.WHITE);
   Raylib.DrawTexture(theMouse, x, y, Color.WHITE);
   Raylib.DrawText(milliSecunds, 730, 10, 20, Color.WHITE);
   Raylib.DrawText(seconds, 700, 10, 20, Color.WHITE);
