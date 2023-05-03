@@ -1,6 +1,6 @@
 ﻿using Raylib_cs;
 int screenHeight = 800;
-int screenWith = 600;
+int screenWith = 800;
 int x = 375;
 int y = 275;
 float milliSecund = 0;
@@ -13,6 +13,10 @@ string seconds = "0";
 string minutes = "0";
 string hours = "0";
 int speed = 3;
+bool cheese = false;
+int points = 0;
+int startposX = x;
+int startposY = y;
 Raylib.InitWindow(screenHeight, screenWith, "Mouse in a rat maze");
 Raylib.SetTargetFPS(60);
 
@@ -43,7 +47,7 @@ Texture2D mouseUppLeft = mouse9;
 Texture2D mouseUppRight = mouse11;
 Texture2D mouseDownRight = mouse13;
 Texture2D mouseDownLeft = mouse15; 
- Raylib.SetMousePosition(375, 275);
+ Raylib.SetMousePosition(startposX, startposY);
 while (!Raylib.WindowShouldClose())
 {
   //logic
@@ -142,6 +146,11 @@ while (!Raylib.WindowShouldClose())
   seconds = second.ToString();
   minutes = minute.ToString();
   hours = hour.ToString();
+  if (cheese)
+  {
+    points ++;
+  }
+
 
   //graphic
   Raylib.BeginDrawing();
