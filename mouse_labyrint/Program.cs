@@ -1,4 +1,5 @@
-﻿using Raylib_cs;
+﻿using System.Numerics;
+using Raylib_cs;
 int screenHeight = 800;
 int screenWith = 800;
 int x = 375;
@@ -103,45 +104,16 @@ while (!Raylib.WindowShouldClose())
  
   int mousey = Raylib.GetMouseY();
   int mousex = Raylib.GetMouseX();
-  if (mousey < y+25)
+  Vector3 xyDraw = mousepos(x,y,mousex,mousey,speed);
+  float xf = xyDraw.X;
+  float yf = xyDraw.Y;
+  float drew = xyDraw.Z;
+  x = (int) xf ;
+  y = (int) yf ;
+  Texture2D mouseDraw = MouseTexture(drew, mouseUpp, mouseDown, mouseRight, mouseLeft, theMouse, mouseUppLeft, mouseUppRight, mouseDownRight, mouseDownLeft);
 
-  if (mousey < y+19)
-  {
-    y-=speed;
-    theMouse = mouseUpp;
-    
-  }
-  if (mousey > y+31)
-  {
-    y+=speed;
-    theMouse = mouseDown;
-  }
-  if (mousex < x+19)
-  {
-    x-=speed;
-    theMouse = mouseLeft; 
-  }
-  if (mousex > x+31)
-  {
-    x+=speed;
-    theMouse = mouseRight;
-  }
-  if (mousey < y+19&&mousex < x+19)
-  {
-    theMouse = mouseUppLeft;
-  }
-  if (mousey < y+19&&mousex > x+31)
-  {
-    theMouse = mouseUppRight;
-  }
-  if (mousey > y+31&&mousex > x+31)
-  {
-    theMouse = mouseDownRight;
-  }
-  if (mousey > y+31&&mousex < x+19)
-  {
-    theMouse = mouseDownLeft;
-  }
+
+
   milliSecunds = milliSecund.ToString();
   seconds = second.ToString();
   minutes = minute.ToString();
@@ -157,10 +129,82 @@ while (!Raylib.WindowShouldClose())
    
   Raylib.ClearBackground(Color.BLACK);
   Raylib.DrawTexture(the_cheese_is_a_lie, 700, 400, Color.WHITE);
-  Raylib.DrawTexture(theMouse, x, y, Color.WHITE);
+  Raylib.DrawTexture(mouseDraw, x, y, Color.WHITE);
   Raylib.DrawText(milliSecunds, 730, 10, 20, Color.WHITE);
   Raylib.DrawText(seconds, 700, 10, 20, Color.WHITE);
   Raylib.DrawText(minutes, 650, 10, 20, Color.WHITE);
   Raylib.DrawText(hours, 600, 10, 20, Color.WHITE);
   Raylib.EndDrawing();
+}
+
+
+static Vector3 mousepos(int x, int y, int mousex, int mousey, int speed){
+  int draw = 0;
+
+  if (mousey < y+19)
+  {
+    y-=speed;
+    draw = 0;
+    
+  }
+  if (mousey > y+31)
+  {
+    y+=speed;
+    draw = 1;
+  }
+  if (mousex < x+19)
+  {
+    x-=speed;
+    draw = 2; 
+  }
+  if (mousex > x+31)
+  {
+    x+=speed;
+    draw = 3;
+  }
+  if (mousey < y+19&&mousex < x+19)
+  {
+    draw = 4;
+  }
+  if (mousey < y+19&&mousex > x+31)
+  {
+    draw = 5;
+  }
+  if (mousey > y+31&&mousex > x+31)
+  {
+    draw = 6;
+  }
+  if (mousey > y+31&&mousex < x+19)
+  {
+    draw = 7;
+  }
+  Vector3 mousexy = new Vector3(x,y,draw);
+  return mousexy;
+}
+static Texture2D MouseTexture(float drew, Texture2D mouseUpp, Texture2D mouseDown, Texture2D mouseRight, Texture2D mouseLeft, Texture2D theMouse, Texture2D mouseUppLeft, Texture2D mouseUppRight, Texture2D mouseDownRight, Texture2D mouseDownLeft){
+    if(drew == 0){
+    theMouse = mouseUpp;
+  }
+  if(drew == 1){
+    theMouse = mouseDown;
+  }
+    if(drew == 2){
+    theMouse = mouseLeft;
+  }
+    if(drew == 3){
+    theMouse = mouseRight;
+  }
+  if(drew == 4){
+    theMouse = mouseUppLeft;
+  }
+  if(drew == 5){
+    theMouse = mouseUppRight;
+  }
+  if (drew ==6){
+    theMouse = mouseDownRight;
+  }
+  if(drew == 7){
+    theMouse = mouseDownLeft;
+  }
+  return theMouse;
 }
