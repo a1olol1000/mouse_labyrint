@@ -2,8 +2,8 @@
 using Raylib_cs;
 int screenHeight = 800;
 int screenWith = 800;
-int x = 375;
-int y = 275;
+int x = 400;
+int y = 400;
 float milliSecund = 0;
 int second = 0;
 int minute = 0;
@@ -16,8 +16,7 @@ string hours = "0";
 int speed = 3;
 bool cheese = false;
 int points = 0;
-int startposX = x;
-int startposY = y;
+
 Raylib.InitWindow(screenHeight, screenWith, "Mouse in a rat maze");
 Raylib.SetTargetFPS(60);
 
@@ -49,7 +48,8 @@ Texture2D mouseUppLeft = mouse9;
 Texture2D mouseUppRight = mouse11;
 Texture2D mouseDownRight = mouse13;
 Texture2D mouseDownLeft = mouse15; 
- Raylib.SetMousePosition(startposX, startposY);
+
+
 int[,] grid5 = {
     {1,1,1,1,1,1,1,1},
     {0,0,0,1,1,1,0,0},
@@ -59,23 +59,36 @@ int[,] grid5 = {
     {1,0,1,1,1,1,0,0},
     {0,0,1,0,0,0,1,1},
     {1,1,1,0,1,0,1,1,}};
+bool notDune = true;
+int yg5 = 0;
+int xg5 = 0;
+int xg5Pos =-50;
+int yg5Pos =50;
+while (notDune)
+{
+  int startu = (int)grid5.GetValue(yg5,xg5);
+ xg5++;
+ xg5Pos +=100;
+ if (xg5 == 8){
+  xg5 = 0;
+  xg5Pos= -50;
+  yg5 ++;
+  yg5Pos += 100;
+ }
+ if (yg5 == 8){Console.WriteLine("error");
+ yg5 = 0;
+ yg5Pos= 50;}
+  if (startu == 3){
+  x = xg5Pos;
+  y = yg5Pos;
+  notDune = false;
+  }
 
-    
-   
-    
-    
-    
-    
-    
- 
-        
-        
-    
-
-
-
+}
     //0 = empty. 1 = wall. 2 = cheese. 3 = start pos.
-
+int startposX = x;
+int startposY = y; 
+Raylib.SetMousePosition(startposX, startposY);
 
 while (!Raylib.WindowShouldClose())
 {
@@ -158,12 +171,13 @@ int wallx = 0;
   Raylib.BeginDrawing();
    
   Raylib.ClearBackground(Color.BLACK);
-  Raylib.DrawTexture(the_cheese_is_a_lie, 700, 400, Color.WHITE);
+  
   for (int i = 0; i < 8; i++)
   {  
     for (int o = 0; o < 8; o++)
     {   int number = (int)grid5.GetValue(yg,xg);
       if (number==1) {Raylib.DrawTexture(wall1_1, wallx, wally, Color.WHITE);}
+      if (number == 2) { Raylib.DrawTexture(the_cheese_is_a_lie, wallx, wally, Color.WHITE);}
           xg++;
           wallx += 100;
   if (xg==8)
