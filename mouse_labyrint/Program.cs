@@ -38,6 +38,7 @@ Texture2D mouse13 = Raylib.LoadTexture(@"mouse_labyrint_character\mouse_labyrint
 Texture2D mouse14 = Raylib.LoadTexture(@"mouse_labyrint_character\mouse_labyrint14.png");
 Texture2D mouse15 = Raylib.LoadTexture(@"mouse_labyrint_character\mouse_labyrint15.png");
 Texture2D mouse16 = Raylib.LoadTexture(@"mouse_labyrint_character\mouse_labyrint16.png");
+Texture2D wall1_1 = Raylib.LoadTexture(@"mouse_labyrint_map_asset\wall_1_1.png");
 Texture2D the_cheese_is_a_lie = Raylib.LoadTexture("the_cheese_is_a_lie.png");
 Texture2D mouseUpp = mouse1;
 Texture2D mouseDown = mouse3;
@@ -49,6 +50,33 @@ Texture2D mouseUppRight = mouse11;
 Texture2D mouseDownRight = mouse13;
 Texture2D mouseDownLeft = mouse15; 
  Raylib.SetMousePosition(startposX, startposY);
+int[,] grid5 = {
+    {1,1,1,1,1,1,1,1},
+    {0,0,0,1,1,1,0,0},
+    {1,1,0,1,1,1,0,1},
+    {0,1,0,3,1,1,0,0},
+    {1,1,1,1,2,0,0,1},
+    {1,0,1,1,1,1,0,0},
+    {0,0,1,0,0,0,1,1},
+    {1,1,1,0,1,0,1,1,}};
+
+    
+   
+    
+    
+    
+    
+    
+ 
+        
+        
+    
+
+
+
+    //0 = empty. 1 = wall. 2 = cheese. 3 = start pos.
+
+
 while (!Raylib.WindowShouldClose())
 {
   //logic
@@ -122,13 +150,35 @@ while (!Raylib.WindowShouldClose())
   {
     points ++;
   }
-
-
+  int yg = 0;
+int xg = 0;
+int wallx = 0;
+    int wally = 0;
   //graphic
   Raylib.BeginDrawing();
    
   Raylib.ClearBackground(Color.BLACK);
   Raylib.DrawTexture(the_cheese_is_a_lie, 700, 400, Color.WHITE);
+  for (int i = 0; i < 8; i++)
+  {  
+    for (int o = 0; o < 8; o++)
+    {   int number = (int)grid5.GetValue(yg,xg);
+      if (number==1) {Raylib.DrawTexture(wall1_1, wallx, wally, Color.WHITE);}
+          xg++;
+          wallx += 100;
+  if (xg==8)
+    {
+        yg++;
+        xg=0;
+        wally += 100;
+        wallx = 0; 
+  }
+  if (yg==8)
+    {
+        yg = 0;
+        wally = 0;
+  }}}
+    
   Raylib.DrawTexture(mouseDraw, x, y, Color.WHITE);
   Raylib.DrawText(milliSecunds, 730, 10, 20, Color.WHITE);
   Raylib.DrawText(seconds, 700, 10, 20, Color.WHITE);
